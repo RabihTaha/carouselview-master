@@ -1,5 +1,6 @@
 package com.synnapps.example.carouselview;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -15,6 +16,8 @@ import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 import com.synnapps.carouselview.ViewListener;
 
+import java.io.File;
+
 public class SampleCarouselViewActivity extends AppCompatActivity {
 
     CarouselView carouselView;
@@ -26,7 +29,8 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
     Button pauseButton;
 
     int[] sampleImages = {R.drawable.image_1, R.drawable.image_2, R.drawable.image_3, R.drawable.image_4, R.drawable.image_5};
-    String[] sampleTitles = {"Orange", "Grapes", "Strawberry", "Cherry", "Apricot"};
+    String[] sampleTitles = {"CLEANNET AntiBacterial Bathroom Cleaner 1L", "CLEANNET DishWash Liquid 1L*3", "CLEANNET Alchohol Spray 70%", "CLEANNET AntiBacterial Hand Soap 500ML*3", "CLEANNET AntiBacterial Hand soap Blue"};
+    String[] imagesNames = {"0000000056824", "0000000056826", "0000000056852", "0000000056853", "0000000056854"};
     String[] sampleNetworkImageURLs = {
             "https://placeholdit.imgix.net/~text?txtsize=15&txt=image1&txt=350%C3%97150&w=350&h=150",
             "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&txt=350%C3%97150&w=350&h=150",
@@ -92,7 +96,14 @@ public class SampleCarouselViewActivity extends AppCompatActivity {
             TextView labelTextView = (TextView) customView.findViewById(R.id.labelTextView);
             ImageView fruitImageView = (ImageView) customView.findViewById(R.id.fruitImageView);
 
-            fruitImageView.setImageResource(sampleImages[position]);
+            //fruitImageView.setImageResource(sampleImages[position]);
+            //File localFile = File("$internalStoragePath/Items/${transDetails.itemNmbr.toString()}.png")
+            String filename = "Items/" + imagesNames[position] + ".png";
+            File file = new File(getFilesDir(), filename);
+            if(file.exists())
+                fruitImageView.setImageDrawable(Drawable.createFromPath(file.toString()));
+
+
             labelTextView.setText(sampleTitles[position]);
 
             carouselView.setIndicatorGravity(Gravity.CENTER_HORIZONTAL|Gravity.TOP);
